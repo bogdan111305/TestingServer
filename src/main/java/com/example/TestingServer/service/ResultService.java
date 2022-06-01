@@ -8,11 +8,9 @@ import java.security.Principal;
 import java.util.List;
 
 public interface ResultService {
-    ResultDTO createReport(ResultDTO resultDTO) throws Exception;
+    ResultDTO createResult(ResultDTO resultDTO) throws Exception;
 
-    ResultDTO updateAndCheckReport(Long reportId, ResultDTO resultDTO) throws Exception;
+    ResultDTO getResultById(Long reportId, Principal principal) throws Exception;
 
-    ResultDTO getReportById(Long reportId, Principal principal) throws Exception;
-
-    List<ResultDTO> getReportsByCurrentUser(Principal principal) throws Exception;
+    List<ResultDTO> getResultsByCurrentUser(Principal principal) throws Exception;
 }

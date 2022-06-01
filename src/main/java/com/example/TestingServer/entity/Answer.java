@@ -31,6 +31,6 @@ public class Answer {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToMany(mappedBy = "answers")
+    @ManyToMany(mappedBy = "answers", fetch = FetchType.LAZY)
     private Set<Result> results;
 }

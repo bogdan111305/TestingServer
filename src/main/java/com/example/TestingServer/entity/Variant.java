@@ -31,4 +31,21 @@ public class Variant {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "variant")
     private List<Result> results;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "variant_user",
+            joinColumns = @JoinColumn(name = "variant_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> users;
+
+    public void addResult(Result result) {
+        results.add(result);
+        result.setVariant(this);
+    }
+
+    public void removeResult(Result result) {
+        results.remove(result);
+        result.setVariant(null);
+    }
 }

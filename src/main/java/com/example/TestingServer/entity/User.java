@@ -26,25 +26,27 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String lastName;
 
-    @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
-
     @ElementCollection(targetClass = ERole.class)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();
 
-    @Column(length = 3000)
-    private String password;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    private List<Result> results = new ArrayList<>();
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-    public User() {
+    @Column(length = 3000)
+    private String password;
 
-    }
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Result> results = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private Set<Variant> variants;
+
+    public User() {}
 
     public User(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities){
         this.id = id;
@@ -54,9 +56,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    public boolean isAccountNonExpired() { return true; }
 
     @Override
     public boolean isAccountNonLocked() { return true; }

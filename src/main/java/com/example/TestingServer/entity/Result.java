@@ -30,8 +30,8 @@ public class Result {
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "report_answer",
-            joinColumns = @JoinColumn(name = "report_id"),
+    @JoinTable(name = "result_answer",
+            joinColumns = @JoinColumn(name = "result_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id")
     )
     private Set<Answer> answers;

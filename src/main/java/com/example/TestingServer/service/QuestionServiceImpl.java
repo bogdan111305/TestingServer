@@ -108,7 +108,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> getQuestions(List<Long> questionsId) throws Exception {
-        List<Question> questions = null;
+        List<Question> questions;
 
         try {
             questions = questionRepository.findAllById(questionsId);
